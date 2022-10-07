@@ -4,6 +4,9 @@ pluginManagement {
         google()
         mavenCentral()
     }
+    plugins {
+        id "io.github.gradle-nexus.publish-plugin" version "1.0.0"
+    }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -12,6 +15,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "CansCloudAndroidSDK"
 include ':app'
 include ':CansCloud-Android-SDK'
