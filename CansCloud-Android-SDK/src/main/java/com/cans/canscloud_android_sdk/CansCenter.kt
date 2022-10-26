@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@Keep
 object CansCenter {
     fun exToast(context: Context, text : String){
         Toast.makeText(context,text,Toast.LENGTH_SHORT).show()
