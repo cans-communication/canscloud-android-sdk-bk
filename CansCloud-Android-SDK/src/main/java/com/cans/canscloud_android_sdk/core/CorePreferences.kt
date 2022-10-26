@@ -21,10 +21,6 @@ package com.cans.canscloud_android_sdk.core
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
-import cc.cans.canscloud.LinphoneApplication.Companion.coreContext
-import cc.cans.canscloud.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
 import java.io.File
 import java.io.FileInputStream
@@ -49,42 +45,42 @@ class CorePreferences constructor(private val context: Context) {
         private const val encryptedSharedPreferencesFile = "encrypted.pref"
     }
 
-    val encryptedSharedPreferences: SharedPreferences? by lazy {
-        val masterKey: MasterKey = MasterKey.Builder(
-            context,
-            MasterKey.DEFAULT_MASTER_KEY_ALIAS
-        ).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
-        try {
-            EncryptedSharedPreferences.create(
-                context, encryptedSharedPreferencesFile, masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-        } catch (kse: KeyStoreException) {
-            Log.e("[VFS] Keystore exception: $kse")
-            null
-        }
-    }
+//    val encryptedSharedPreferences: SharedPreferences? by lazy {
+//        val masterKey: MasterKey = MasterKey.Builder(
+//            context,
+//            MasterKey.DEFAULT_MASTER_KEY_ALIAS
+//        ).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+//        try {
+//            EncryptedSharedPreferences.create(
+//                context, encryptedSharedPreferencesFile, masterKey,
+//                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+//                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+//            )
+//        } catch (kse: KeyStoreException) {
+//            Log.e("[VFS] Keystore exception: $kse")
+//            null
+//        }
+//    }
 
-    var vfsEnabled: Boolean
-        get() = encryptedSharedPreferences?.getBoolean("vfs_enabled", false) ?: false
-        set(value) {
-            val preferences = encryptedSharedPreferences
-            if (preferences == null) {
-                Log.e("[VFS] Failed to get encrypted SharedPreferences")
-                return
-            }
-
-            if (!value && preferences.getBoolean("vfs_enabled", false)) {
-                Log.w("[VFS] It is not possible to disable VFS once it has been enabled")
-                return
-            }
-
-            preferences.edit().putBoolean("vfs_enabled", value)?.apply()
-            // When VFS is enabled we disable logcat output for linphone logs
-            // TODO: decide if we do it
-            // logcatLogsOutput = false
-        }
+//    var vfsEnabled: Boolean
+//        get() = encryptedSharedPreferences?.getBoolean("vfs_enabled", false) ?: false
+//        set(value) {
+//            val preferences = encryptedSharedPreferences
+//            if (preferences == null) {
+//                Log.e("[VFS] Failed to get encrypted SharedPreferences")
+//                return
+//            }
+//
+//            if (!value && preferences.getBoolean("vfs_enabled", false)) {
+//                Log.w("[VFS] It is not possible to disable VFS once it has been enabled")
+//                return
+//            }
+//
+//            preferences.edit().putBoolean("vfs_enabled", value)?.apply()
+//            // When VFS is enabled we disable logcat output for linphone logs
+//            // TODO: decide if we do it
+//            // logcatLogsOutput = false
+//        }
 
 //    var forceUpdate: Boolean
 //        get() = config.getBool("app", "force_update", false)
@@ -94,11 +90,11 @@ class CorePreferences constructor(private val context: Context) {
 
     /* App settings */
 
-    var debugLogs: Boolean
-        get() = config.getBool("app", "debug", cc.cans.canscloud.BuildConfig.DEBUG)
-        set(value) {
-            config.setBool("app", "debug", value)
-        }
+//    var debugLogs: Boolean
+//        get() = config.getBool("app", "debug", cc.cans.canscloud.BuildConfig.DEBUG)
+//        set(value) {
+//            config.setBool("app", "debug", value)
+//        }
 
     var logcatLogsOutput: Boolean
         get() = config.getBool("app", "print_logs_into_logcat", true)
@@ -214,9 +210,9 @@ class CorePreferences constructor(private val context: Context) {
             config.setBool("app", "hide_chat_rooms_from_removed_proxies", value)
         }
 
-    var deviceName: String
-        get() = config.getString("app", "device_name", Compatibility.getDeviceName(context))!!
-        set(value) = config.setString("app", "device_name", value)
+//    var deviceName: String
+//        get() = config.getString("app", "device_name", Compatibility.getDeviceName(context))!!
+//        set(value) = config.setString("app", "device_name", value)
 
     var chatRoomShortcuts: Boolean
         get() = config.getBool("app", "chat_room_shortcuts", true)
@@ -606,70 +602,70 @@ class CorePreferences constructor(private val context: Context) {
     val staticPicturePath: String
         get() = context.filesDir.absolutePath + "/share/images/nowebcamcif.jpg"
 
-    fun copyAssetsFromPackage() {
-        copy("linphonerc_default", configPath)
-        copy("linphonerc_factory", factoryConfigPath, true)
-        copy("assistant_linphone_default_values", linphoneDefaultValuesPath, true)
-        copy("assistant_default_values", defaultValuesPath, true)
-
-        move(context.filesDir.absolutePath + "/linphone-log-history.db", context.filesDir.absolutePath + "/call-history.db")
-        move(context.filesDir.absolutePath + "/zrtp_secrets", context.filesDir.absolutePath + "/zrtp-secrets.db")
-    }
+//    fun copyAssetsFromPackage() {
+//        copy("linphonerc_default", configPath)
+//        copy("linphonerc_factory", factoryConfigPath, true)
+//        copy("assistant_linphone_default_values", linphoneDefaultValuesPath, true)
+//        copy("assistant_default_values", defaultValuesPath, true)
+//
+//        move(context.filesDir.absolutePath + "/linphone-log-history.db", context.filesDir.absolutePath + "/call-history.db")
+//        move(context.filesDir.absolutePath + "/zrtp_secrets", context.filesDir.absolutePath + "/zrtp-secrets.db")
+//    }
 
     fun getString(resource: Int): String {
         return context.getString(resource)
     }
 
-    private fun copy(from: String, to: String, overrideIfExists: Boolean = false) {
-        val outFile = File(to)
-        if (outFile.exists()) {
-            if (!overrideIfExists) {
-                android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] File $to already exists")
-                return
-            }
-        }
-        android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Overriding $to by $from asset")
-
-        val outStream = FileOutputStream(outFile)
-        val inFile = context.assets.open(from)
-        val buffer = ByteArray(1024)
-        var length: Int = inFile.read(buffer)
-
-        while (length > 0) {
-            outStream.write(buffer, 0, length)
-            length = inFile.read(buffer)
-        }
-
-        inFile.close()
-        outStream.flush()
-        outStream.close()
-    }
-
-    private fun move(from: String, to: String, overrideIfExists: Boolean = false) {
-        val inFile = File(from)
-        val outFile = File(to)
-        if (inFile.exists()) {
-            if (outFile.exists() && !overrideIfExists) {
-                android.util.Log.w(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Can't move [$from] to [$to], destination file already exists")
-            } else {
-                val inStream = FileInputStream(inFile)
-                val outStream = FileOutputStream(outFile)
-
-                val buffer = ByteArray(1024)
-                var read: Int
-                while (inStream.read(buffer).also { read = it } != -1) {
-                    outStream.write(buffer, 0, read)
-                }
-
-                inStream.close()
-                outStream.flush()
-                outStream.close()
-
-                inFile.delete()
-                android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Successfully moved [$from] to [$to]")
-            }
-        } else {
-            android.util.Log.w(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Can't move [$from] to [$to], source file doesn't exists")
-        }
-    }
+//    private fun copy(from: String, to: String, overrideIfExists: Boolean = false) {
+//        val outFile = File(to)
+//        if (outFile.exists()) {
+//            if (!overrideIfExists) {
+//                android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] File $to already exists")
+//                return
+//            }
+//        }
+//        android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Overriding $to by $from asset")
+//
+//        val outStream = FileOutputStream(outFile)
+//        val inFile = context.assets.open(from)
+//        val buffer = ByteArray(1024)
+//        var length: Int = inFile.read(buffer)
+//
+//        while (length > 0) {
+//            outStream.write(buffer, 0, length)
+//            length = inFile.read(buffer)
+//        }
+//
+//        inFile.close()
+//        outStream.flush()
+//        outStream.close()
+//    }
+//
+//    private fun move(from: String, to: String, overrideIfExists: Boolean = false) {
+//        val inFile = File(from)
+//        val outFile = File(to)
+//        if (inFile.exists()) {
+//            if (outFile.exists() && !overrideIfExists) {
+//                android.util.Log.w(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Can't move [$from] to [$to], destination file already exists")
+//            } else {
+//                val inStream = FileInputStream(inFile)
+//                val outStream = FileOutputStream(outFile)
+//
+//                val buffer = ByteArray(1024)
+//                var read: Int
+//                while (inStream.read(buffer).also { read = it } != -1) {
+//                    outStream.write(buffer, 0, read)
+//                }
+//
+//                inStream.close()
+//                outStream.flush()
+//                outStream.close()
+//
+//                inFile.delete()
+//                android.util.Log.i(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Successfully moved [$from] to [$to]")
+//            }
+//        } else {
+//            android.util.Log.w(context.getString(cc.cans.canscloud.R.string.app_name), "[Preferences] Can't move [$from] to [$to], source file doesn't exists")
+//        }
+//    }
 }

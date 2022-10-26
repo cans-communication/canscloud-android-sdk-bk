@@ -48,7 +48,7 @@ class LinphoneApplication : Application(), LifecycleObserver {
             Factory.instance().enableLogCollection(LogCollectionState.Enabled)
 
             com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences = CorePreferences(context)
-            com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences.copyAssetsFromPackage()
+
 
 //            if ( com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences.vfsEnabled) {
 //                CoreContext.activateVFS()
@@ -60,13 +60,13 @@ class LinphoneApplication : Application(), LifecycleObserver {
             val appName = context.getString( com.cans.canscloud_android_sdk.R.string.app_name)
             Factory.instance().setLoggerDomain(appName)
             Factory.instance().enableLogcatLogs( com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences.logcatLogsOutput)
-            if ( com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences.debugLogs) {
-                Factory.instance().loggingService.setLogLevel(LogLevel.Message)
-            }
+//            if ( com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences.debugLogs) {
+//                Factory.instance().loggingService.setLogLevel(LogLevel.Message)
+//            }
 
             Log.i("[Application] Core context created ${if (pushReceived) "from push" else ""}")
             com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext = CoreContext(context, config)
-            com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext.start()
+           // com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext.start()
         }
     }
 

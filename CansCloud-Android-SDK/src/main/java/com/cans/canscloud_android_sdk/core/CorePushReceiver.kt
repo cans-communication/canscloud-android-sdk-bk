@@ -22,12 +22,11 @@ package com.cans.canscloud_android_sdk.core
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import cc.cans.canscloud.LinphoneApplication.Companion.ensureCoreExists
 import org.linphone.core.tools.Log
 
 class CorePushReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        ensureCoreExists(context.applicationContext, true)
+       // ensureCoreExists(context.applicationContext, true)
         Log.i("[Push Receiver] Push notification received")
     }
 }

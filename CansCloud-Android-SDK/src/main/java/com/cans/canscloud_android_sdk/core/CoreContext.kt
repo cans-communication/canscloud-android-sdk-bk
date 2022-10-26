@@ -109,7 +109,7 @@ class CoreContext(val context: Context, coreConfig: Config) {
             Log.w("[Context] Enabling low bandwidth mode!")
             params.isLowBandwidthEnabled = true
         }
-        params.recordFile = LinphoneUtils.getRecordingFilePathForAddress(address)
+        //params.recordFile = LinphoneUtils.getRecordingFilePathForAddress(address)
 
         if (localAddress != null) {
             params.proxyConfig = core.proxyConfigList.find { proxyConfig ->

@@ -17,14 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package cc.cans.canscloud.telecom
+package com.cans.canscloud_android_sdk.telecom
 
 import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.telecom.*
-import cc.cans.canscloud.LinphoneApplication.Companion.coreContext
-import com.cans.canscloud_android_sdk.telecom.NativeCallWrapper
+import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
 import org.linphone.core.Call
 import org.linphone.core.Core
 import org.linphone.core.CoreListenerStub
@@ -51,6 +50,7 @@ class TelecomConnectionService : ConnectionService() {
                 Call.State.Error -> onCallError(call)
                 Call.State.End, Call.State.Released -> onCallEnded(call)
                 Call.State.Connected -> onCallConnected(call)
+                else -> {}
             }
         }
 

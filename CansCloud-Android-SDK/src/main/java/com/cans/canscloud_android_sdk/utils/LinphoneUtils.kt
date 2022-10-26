@@ -41,18 +41,18 @@ class LinphoneUtils {
     companion object {
         private const val RECORDING_DATE_PATTERN = "dd-MM-yyyy-HH-mm-ss"
 
-        fun getDisplayName(address: Address): String {
-            if (address.displayName == null) {
-                val account = coreContext.core.accountList.find { account ->
-                    account.params.identityAddress?.asStringUriOnly() == address.asStringUriOnly()
-                }
-                val localDisplayName = account?.params?.identityAddress?.displayName
-                if (localDisplayName != null) {
-                    return localDisplayName
-                }
-            }
-            return address.displayName ?: address.username ?: ""
-        }
+//        fun getDisplayName(address: Address): String {
+//            if (address.displayName == null) {
+//                val account = coreContext.core.accountList.find { account ->
+//                    account.params.identityAddress?.asStringUriOnly() == address.asStringUriOnly()
+//                }
+//                val localDisplayName = account?.params?.identityAddress?.displayName
+//                if (localDisplayName != null) {
+//                    return localDisplayName
+//                }
+//            }
+//            return address.displayName ?: address.username ?: ""
+//        }
 
         fun getDisplayableAddress(address: Address?): String {
             if (address == null) return "[null]"
@@ -65,36 +65,36 @@ class LinphoneUtils {
             }
         }
 
-        fun isLimeAvailable(): Boolean {
-            val core = coreContext.core
-            return core.limeX3DhAvailable() && core.isLimeX3DhEnabled &&
-                core.limeX3DhServerUrl != null &&
-                core.defaultAccount?.params?.conferenceFactoryUri != null
-        }
-
-        fun isGroupChatAvailable(): Boolean {
-            val core = coreContext.core
-            return core.defaultAccount?.params?.conferenceFactoryUri != null
-        }
-
-        fun createOneToOneChatRoom(participant: Address, isSecured: Boolean = false): ChatRoom? {
-            val core: Core = coreContext.core
-            val defaultAccount = core.defaultAccount
-
-            val params = core.createDefaultChatRoomParams()
-            params.isGroupEnabled = false
-            params.backend = ChatRoomBackend.Basic
-            if (isSecured) {
-                params.subject = AppUtils.getString(R.string.chat_room_dummy_subject)
-                params.isEncryptionEnabled = true
-                params.backend = ChatRoomBackend.FlexisipChat
-            }
-
-            val participants = arrayOf(participant)
-
-            return core.searchChatRoom(params, defaultAccount?.contactAddress, null, participants)
-                ?: core.createChatRoom(params, defaultAccount?.contactAddress, participants)
-        }
+//        fun isLimeAvailable(): Boolean {
+//            val core = coreContext.core
+//            return core.limeX3DhAvailable() && core.isLimeX3DhEnabled &&
+//                core.limeX3DhServerUrl != null &&
+//                core.defaultAccount?.params?.conferenceFactoryUri != null
+//        }
+//
+//        fun isGroupChatAvailable(): Boolean {
+//            val core = coreContext.core
+//            return core.defaultAccount?.params?.conferenceFactoryUri != null
+//        }
+//
+//        fun createOneToOneChatRoom(participant: Address, isSecured: Boolean = false): ChatRoom? {
+//            val core: Core = coreContext.core
+//            val defaultAccount = core.defaultAccount
+//
+//            val params = core.createDefaultChatRoomParams()
+//            params.isGroupEnabled = false
+//            params.backend = ChatRoomBackend.Basic
+//            if (isSecured) {
+//               // params.subject = AppUtils.getString(R.string.chat_room_dummy_subject)
+//                params.isEncryptionEnabled = true
+//                params.backend = ChatRoomBackend.FlexisipChat
+//            }
+//
+//            val participants = arrayOf(participant)
+//
+//            return core.searchChatRoom(params, defaultAccount?.contactAddress, null, participants)
+//                ?: core.createChatRoom(params, defaultAccount?.contactAddress, participants)
+//        }
 
         fun deleteFilesAttachedToEventLog(eventLog: EventLog) {
             if (eventLog.type == EventLog.Type.ConferenceChatMessage) {
@@ -108,29 +108,29 @@ class LinphoneUtils {
                 val filePath = content.filePath
                 if (filePath != null && filePath.isNotEmpty()) {
                     Log.i("[Linphone Utils] Deleting file $filePath")
-                    FileUtils.deleteFile(filePath)
+                   // FileUtils.deleteFile(filePath)
                 }
             }
         }
 
-        fun getRecordingFilePathForAddress(address: Address): String {
-            val displayName = getDisplayName(address)
-            val dateFormat: DateFormat = SimpleDateFormat(
-                RECORDING_DATE_PATTERN,
-                Locale.getDefault()
-            )
-            val fileName = "${displayName}_${dateFormat.format(Date())}.mkv"
-            return FileUtils.getFileStoragePath(fileName).absolutePath
-        }
-
-        fun getRecordingFilePathForConference(): String {
-            val dateFormat: DateFormat = SimpleDateFormat(
-                RECORDING_DATE_PATTERN,
-                Locale.getDefault()
-            )
-            val fileName = "conference_${dateFormat.format(Date())}.mkv"
-            return FileUtils.getFileStoragePath(fileName).absolutePath
-        }
+//        fun getRecordingFilePathForAddress(address: Address): String {
+//            val displayName = getDisplayName(address)
+//            val dateFormat: DateFormat = SimpleDateFormat(
+//                RECORDING_DATE_PATTERN,
+//                Locale.getDefault()
+//            )
+//            val fileName = "${displayName}_${dateFormat.format(Date())}.mkv"
+//            return FileUtils.getFileStoragePath(fileName).absolutePath
+//        }
+//
+//        fun getRecordingFilePathForConference(): String {
+//            val dateFormat: DateFormat = SimpleDateFormat(
+//                RECORDING_DATE_PATTERN,
+//                Locale.getDefault()
+//            )
+//            val fileName = "conference_${dateFormat.format(Date())}.mkv"
+//            return FileUtils.getFileStoragePath(fileName).absolutePath
+//        }
 
         fun getRecordingDateFromFileName(name: String): Date {
             return SimpleDateFormat(RECORDING_DATE_PATTERN, Locale.getDefault()).parse(name)

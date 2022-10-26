@@ -5,6 +5,10 @@ plugins {
 }
 
 def crashlyticsEnabled = new File(projectDir.absolutePath +'/google-services.json').exists() && new File(LinphoneSdkBuildDir + '/libs/').exists() && new File(LinphoneSdkBuildDir + '/libs-debug/').exists()
+
+configurations {
+    customImplementation.extendsFrom implementation
+}
 task linphoneSdkSource() {
     doLast {
         configurations.customImplementation.getIncoming().each {
