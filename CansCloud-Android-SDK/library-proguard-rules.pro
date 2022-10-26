@@ -59,6 +59,6 @@
 
 # Add any classes the interact with gson
 # the following line is for illustration purposes
-#-keepclasseswithmembernames class * {
-#    native <methods>;
-#}
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
