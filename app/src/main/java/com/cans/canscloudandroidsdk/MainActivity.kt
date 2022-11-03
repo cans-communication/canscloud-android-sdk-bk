@@ -23,5 +23,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("getPhonebook onFailure","MainActivity: $exception")
             }
         })
+
+        CansCenter.startCall("50105")
     }
 }
