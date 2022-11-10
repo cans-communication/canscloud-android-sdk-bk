@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.Keep
-import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
 import com.cans.canscloud_android_sdk.model.PhonebookContacts
 import com.cans.canscloud_android_sdk.retrofit.ApiCallback
 import com.cans.canscloud_android_sdk.retrofit.RetrofitClient

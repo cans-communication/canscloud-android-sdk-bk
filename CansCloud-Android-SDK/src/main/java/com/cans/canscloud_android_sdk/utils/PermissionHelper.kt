@@ -21,6 +21,7 @@ package com.cans.canscloud_android_sdk.utils
 
 import android.Manifest
 import android.content.Context
+import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import org.linphone.core.tools.Log
 
 /**
@@ -29,17 +30,17 @@ import org.linphone.core.tools.Log
 class PermissionHelper private constructor(private val context: Context) {
     companion object : SingletonHolder<PermissionHelper, Context>(::PermissionHelper)
 
-//    private fun hasPermission(permission: String): Boolean {
-//        val granted = Compatibility.hasPermission(context, permission)
-//
-//        if (granted) {
-//            Log.d("[Permission Helper] Permission $permission is granted")
-//        } else {
-//            Log.w("[Permission Helper] Permission $permission is denied")
-//        }
-//
-//        return granted
-//    }
+    private fun hasPermission(permission: String): Boolean {
+        val granted = Compatibility.hasPermission(context, permission)
+
+        if (granted) {
+            Log.d("[Permission Helper] Permission $permission is granted")
+        } else {
+            Log.w("[Permission Helper] Permission $permission is denied")
+        }
+
+        return granted
+    }
 
 //    fun hasReadContactsPermission(): Boolean {
 //        return hasPermission(Manifest.permission.READ_CONTACTS)
@@ -49,21 +50,21 @@ class PermissionHelper private constructor(private val context: Context) {
 //        return hasPermission(Manifest.permission.WRITE_CONTACTS)
 //    }
 //
-//    fun hasReadPhoneStatePermission(): Boolean {
-//        return hasPermission(Manifest.permission.READ_PHONE_STATE)
-//    }
+    fun hasReadPhoneStatePermission(): Boolean {
+        return hasPermission(Manifest.permission.READ_PHONE_STATE)
+    }
 
-//    fun hasReadPhoneStateOrPhoneNumbersPermission(): Boolean {
-//        return Compatibility.hasReadPhoneStateOrNumbersPermission(context)
-//    }
+    fun hasReadPhoneStateOrPhoneNumbersPermission(): Boolean {
+        return Compatibility.hasReadPhoneStateOrNumbersPermission(context)
+    }
 
 //    fun hasReadExternalStoragePermission(): Boolean {
 //        return hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
 //    }
 //
-//    fun hasWriteExternalStoragePermission(): Boolean {
-//        return hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//    }
+    fun hasWriteExternalStoragePermission(): Boolean {
+        return hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
 //
 //    fun hasCameraPermission(): Boolean {
 //        return hasPermission(Manifest.permission.CAMERA)

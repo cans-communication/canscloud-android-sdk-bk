@@ -21,13 +21,14 @@ package com.cans.canscloud_android_sdk.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.icu.text.Collator.getDisplayName
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.telephony.TelephonyManager.*
-import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
-import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.corePreferences
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.R
-import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -113,7 +114,7 @@ class LinphoneUtils {
             }
         }
 
-//        fun getRecordingFilePathForAddress(address: Address): String {
+        fun getRecordingFilePathForAddress(address: Address): String {
 //            val displayName = getDisplayName(address)
 //            val dateFormat: DateFormat = SimpleDateFormat(
 //                RECORDING_DATE_PATTERN,
@@ -121,16 +122,17 @@ class LinphoneUtils {
 //            )
 //            val fileName = "${displayName}_${dateFormat.format(Date())}.mkv"
 //            return FileUtils.getFileStoragePath(fileName).absolutePath
-//        }
-//
-//        fun getRecordingFilePathForConference(): String {
-//            val dateFormat: DateFormat = SimpleDateFormat(
-//                RECORDING_DATE_PATTERN,
-//                Locale.getDefault()
-//            )
-//            val fileName = "conference_${dateFormat.format(Date())}.mkv"
-//            return FileUtils.getFileStoragePath(fileName).absolutePath
-//        }
+            return ""
+        }
+
+        fun getRecordingFilePathForConference(): String {
+            val dateFormat: DateFormat = SimpleDateFormat(
+                RECORDING_DATE_PATTERN,
+                Locale.getDefault()
+            )
+            val fileName = "conference_${dateFormat.format(Date())}.mkv"
+            return ""
+        }
 
         fun getRecordingDateFromFileName(name: String): Date {
             return SimpleDateFormat(RECORDING_DATE_PATTERN, Locale.getDefault()).parse(name)

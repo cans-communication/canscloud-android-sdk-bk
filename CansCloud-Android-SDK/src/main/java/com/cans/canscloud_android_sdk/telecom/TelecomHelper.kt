@@ -30,7 +30,7 @@ import android.telecom.PhoneAccount
 import android.telecom.PhoneAccountHandle
 import android.telecom.TelecomManager
 import android.telecom.TelecomManager.*
-import com.cans.canscloud_android_sdk.LinphoneApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
 import com.cans.canscloud_android_sdk.R
 import com.cans.canscloud_android_sdk.utils.PermissionHelper
 import com.cans.canscloud_android_sdk.utils.SingletonHolder
@@ -46,7 +46,7 @@ class TelecomHelper private constructor(context: Context) {
 
     private val telecomManager: TelecomManager = context.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
 
-   // private var account: PhoneAccount = initPhoneAccount(context)
+    private var account: PhoneAccount = initPhoneAccount(context)
 
     val connections = arrayListOf<NativeCallWrapper>()
 
@@ -81,11 +81,11 @@ class TelecomHelper private constructor(context: Context) {
         Log.i("[Telecom Helper] Destroyed")
     }
 
-//    fun isIncomingCallPermitted(): Boolean {
-//        val incomingCallPermitted = telecomManager.isIncomingCallPermitted(account.accountHandle)
-//        Log.i("[Telecom Helper] Is incoming call permitted? $incomingCallPermitted")
-//        return incomingCallPermitted
-//    }
+    fun isIncomingCallPermitted(): Boolean {
+        val incomingCallPermitted = telecomManager.isIncomingCallPermitted(account.accountHandle)
+        Log.i("[Telecom Helper] Is incoming call permitted? $incomingCallPermitted")
+        return incomingCallPermitted
+    }
 
     @SuppressLint("MissingPermission")
     fun isInManagedCall(): Boolean {
@@ -95,14 +95,14 @@ class TelecomHelper private constructor(context: Context) {
         return isInManagedCall
     }
 
-//    fun isAccountEnabled(): Boolean {
-//        val enabled = account.isEnabled
-//        Log.i("[Telecom Helper] Is account enabled ? $enabled")
-//        return enabled
-//    }
+    fun isAccountEnabled(): Boolean {
+        val enabled = account.isEnabled
+        Log.i("[Telecom Helper] Is account enabled ? $enabled")
+        return enabled
+    }
 
     @SuppressLint("MissingPermission")
-//    fun findExistingAccount(context: Context): PhoneAccount? {
+    fun findExistingAccount(context: Context): PhoneAccount? {
 //        if (PermissionHelper.required(context).hasReadPhoneStateOrPhoneNumbersPermission()) {
 //            var account: PhoneAccount? = null
 //            val phoneAccountHandleList: List<PhoneAccountHandle> =
@@ -123,8 +123,8 @@ class TelecomHelper private constructor(context: Context) {
 //        } else {
 //            Log.e("[Telecom Helper] Can't search for existing phone account, missing permission(s)")
 //        }
-//        return null
-//    }
+        return null
+    }
 
 //    fun updateAccount(newAccount: PhoneAccount?) {
 //        if (newAccount != null) {
@@ -148,14 +148,14 @@ class TelecomHelper private constructor(context: Context) {
         }
     }
 
-//    private fun initPhoneAccount(context: Context): PhoneAccount {
-//        val account: PhoneAccount? = findExistingAccount(context)
-//        if (account == null) {
-//            Log.i("[Telecom Helper] Phone account not found, let's create it")
-//            return createAccount(context)
-//        }
-//        return account
-//    }
+    private fun initPhoneAccount(context: Context): PhoneAccount {
+        val account: PhoneAccount? = findExistingAccount(context)
+        if (account == null) {
+            Log.i("[Telecom Helper] Phone account not found, let's create it")
+            return createAccount(context)
+        }
+        return account
+    }
 
     private fun createAccount(context: Context): PhoneAccount {
         val accountHandle = PhoneAccountHandle(
