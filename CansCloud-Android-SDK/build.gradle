@@ -37,7 +37,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             //signingConfig signingConfigs.release
             consumerProguardFiles 'library-proguard-rules.pro'
 
