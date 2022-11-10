@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        CansCenter.configCore(this)
         CansCenter.exToast(this, "Hello World")
         CansCenter.fetchPhonebook("cns.cans.cc","39706", object : ApiCallback<PhonebookContacts> {
             override fun onSuccess(response: PhonebookContacts) {
@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        CansCenter.getCountCalls()
+        var count = CansCenter.getCountCalls()
+        Log.d("MainActivity : ","count calls: $count")
+
     }
 }

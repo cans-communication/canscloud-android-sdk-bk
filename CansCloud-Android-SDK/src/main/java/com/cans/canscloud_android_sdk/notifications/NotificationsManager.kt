@@ -35,8 +35,8 @@ import androidx.core.app.RemoteInput
 import androidx.core.content.ContextCompat
 import androidx.core.content.LocusIdCompat
 import androidx.core.graphics.drawable.IconCompat
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.corePreferences
 import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.contact.Contact
 import com.cans.canscloud_android_sdk.core.*

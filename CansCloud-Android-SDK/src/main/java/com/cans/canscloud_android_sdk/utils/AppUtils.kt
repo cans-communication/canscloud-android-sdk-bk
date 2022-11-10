@@ -28,7 +28,7 @@ import android.os.Bundle
 import android.text.format.Formatter.formatShortFileSize
 import android.util.TypedValue
 import androidx.core.content.res.ResourcesCompat
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import java.util.*
 import org.linphone.core.tools.Log
 

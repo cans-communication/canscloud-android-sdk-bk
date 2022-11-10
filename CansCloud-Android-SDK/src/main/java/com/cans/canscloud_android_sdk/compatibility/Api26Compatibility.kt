@@ -35,8 +35,8 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
+//import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+//import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.R
 import com.cans.canscloud_android_sdk.contact.Contact
 import com.cans.canscloud_android_sdk.notifications.Notifiable

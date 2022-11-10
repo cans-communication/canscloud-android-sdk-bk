@@ -30,7 +30,7 @@ import android.telecom.PhoneAccount
 import android.telecom.PhoneAccountHandle
 import android.telecom.TelecomManager
 import android.telecom.TelecomManager.*
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import com.cans.canscloud_android_sdk.R
 import com.cans.canscloud_android_sdk.utils.PermissionHelper
 import com.cans.canscloud_android_sdk.utils.SingletonHolder

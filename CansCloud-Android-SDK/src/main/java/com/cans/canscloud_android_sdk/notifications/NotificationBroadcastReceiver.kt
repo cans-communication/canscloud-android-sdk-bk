@@ -24,7 +24,7 @@ import android.app.RemoteInput
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import org.linphone.core.Call
 import org.linphone.core.Core

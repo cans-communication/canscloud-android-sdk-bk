@@ -25,10 +25,10 @@ import android.icu.text.Collator.getDisplayName
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.telephony.TelephonyManager.*
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.corePreferences
 import com.cans.canscloud_android_sdk.R
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

@@ -21,7 +21,7 @@ package com.cans.canscloud_android_sdk.utils
 
 import android.telecom.CallAudioState
 import androidx.appcompat.resources.Compatibility
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import com.cans.canscloud_android_sdk.telecom.TelecomHelper
 import org.linphone.core.AudioDevice
 import org.linphone.core.Call

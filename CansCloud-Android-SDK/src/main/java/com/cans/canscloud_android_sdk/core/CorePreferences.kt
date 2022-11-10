@@ -23,7 +23,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.hardware.usb.UsbDevice.getDeviceName
 import androidx.appcompat.resources.Compatibility
-import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
