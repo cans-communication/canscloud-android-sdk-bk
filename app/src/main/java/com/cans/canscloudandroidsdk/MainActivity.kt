@@ -24,6 +24,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        CansCenter.startCall("50105")
+        CansCenter.getCountCalls()
     }
 }

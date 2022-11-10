@@ -1,13 +1,17 @@
 package com.cans.canscloud_android_sdk
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.Keep
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext
+import com.cans.canscloud_android_sdk.core.CoreContext
+import com.cans.canscloud_android_sdk.core.CorePreferences
 import com.cans.canscloud_android_sdk.model.PhonebookContacts
 import com.cans.canscloud_android_sdk.retrofit.ApiCallback
 import com.cans.canscloud_android_sdk.retrofit.RetrofitClient
+import org.linphone.core.tools.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +54,12 @@ object CansCenter {
         } else {
             //setLastOutgoingCallAddress()
         }
+    }
+
+    fun getCountCalls(): Int {
+        val call = coreContext.core.callsNb
+        Log.i("[Application] getCountCalls : $call")
+        return call
     }
 
     fun terminateCall() {
