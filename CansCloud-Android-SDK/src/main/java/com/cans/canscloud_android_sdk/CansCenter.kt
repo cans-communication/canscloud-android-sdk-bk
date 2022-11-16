@@ -63,7 +63,8 @@ class CansCenter {
         }
 
         fun configCore(context: Context){
-            ensureCoreExists(context)
+            //ensureCoreExists(context)
+            CansCloudApplication().configCoreApp(context)
         }
 
         fun fetchPhonebook(

@@ -34,63 +34,47 @@ import org.linphone.mediastream.Version
 //import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 
 class CansCloudApplication : Application(), LifecycleObserver {
-//    companion object {
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var corePreferences: CorePreferences
+        @SuppressLint("StaticFieldLeak")
+        lateinit var coreContext: CoreContext
 
-//        fun ensureCoreExists(context: Context, pushReceived: Boolean = false) {
-//            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion::coreContext.isInitialized && !com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext.stopped) {
-//                Log.d("[Application] Skipping Core creation (push received? $pushReceived)")
-//                return
-//            }
-//
-//            Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
-//            Factory.instance().enableLogCollection(LogCollectionState.Enabled)
-//
-//            corePreferences = CorePreferences(context)
-//          //  corePreferences.copyAssetsFromPackage()
-//
-//            if (corePreferences.vfsEnabled) {
-//                CoreContext.activateVFS()
-//            }
-//
-//            val config = Factory.instance().createConfigWithFactory(corePreferences.configPath, corePreferences.factoryConfigPath)
-//            corePreferences.config = config
-//
-//            val appName = context.getString(R.string.app_name)
-//            Factory.instance().setLoggerDomain(appName)
-//            Factory.instance().enableLogcatLogs(corePreferences.logcatLogsOutput)
-//            if (corePreferences.debugLogs) {
-//                Factory.instance().loggingService.setLogLevel(LogLevel.Message)
-//            }
-//
-//            Log.i("[Application] Core context created ${if (pushReceived) "from push" else ""}")
-//            coreContext = CoreContext(context, config)
-//            coreContext.start()
-//        }
-//    }
+        fun ensureCoreExists(context: Context, pushReceived: Boolean = false) {
+            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion::coreContext.isInitialized && !com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext.stopped) {
+                Log.d("[Application] Skipping Core creation (push received? $pushReceived)")
+                return
+            }
+
+            Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
+            Factory.instance().enableLogCollection(LogCollectionState.Enabled)
+
+            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences = CorePreferences(context)
+            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.copyAssetsFromPackage()
+
+            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.vfsEnabled) {
+                CoreContext.activateVFS()
+            }
+
+            val config = Factory.instance().createConfigWithFactory(com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.configPath, com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.factoryConfigPath)
+            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.config = config
+
+            val appName = context.getString(com.cans.canscloud_android_sdk.R.string.app_name)
+            Factory.instance().setLoggerDomain(appName)
+            Factory.instance().enableLogcatLogs(com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.logcatLogsOutput)
+            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.debugLogs) {
+                Factory.instance().loggingService.setLogLevel(LogLevel.Message)
+            }
+
+            Log.i("[Application] Core context created ${if (pushReceived) "from push" else ""}")
+            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext = CoreContext(context, config)
+            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext.start()
+        }
+    }
 
 
-//    override fun newImageLoader(): ImageLoader {
-//        return ImageLoader.Builder(this)
-//            .components {
-//                add(VideoFrameDecoder.Factory())
-//                add(SvgDecoder.Factory())
-//                if (Version.sdkAboveOrEqual(Version.API28_PIE_90)) {
-//                    add(ImageDecoderDecoder.Factory())
-//                } else {
-//                    add(GifDecoder.Factory())
-//                }
-//            }
-//            .memoryCache {
-//                MemoryCache.Builder(this)
-//                    .maxSizePercent(0.25)
-//                    .build()
-//            }
-//            .diskCache {
-//                DiskCache.Builder()
-//                    .directory(cacheDir.resolve("image_cache"))
-//                    .maxSizePercent(0.02)
-//                    .build()
-//            }
-//            .build()
-//    }
+
+    fun configCoreApp(context: Context){
+        com.cans.canscloud_android_sdk.CansCloudApplication.Companion.ensureCoreExists(context)
+    }
 }
