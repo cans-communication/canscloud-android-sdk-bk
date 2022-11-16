@@ -27,5 +27,7 @@ class MainActivity : AppCompatActivity() {
         var count = CansCenter.getCountCalls()
         Log.d("MainActivity : ","count calls: $count")
 
+        CansCenter.startCall("0838927729")
+
     }
 }
