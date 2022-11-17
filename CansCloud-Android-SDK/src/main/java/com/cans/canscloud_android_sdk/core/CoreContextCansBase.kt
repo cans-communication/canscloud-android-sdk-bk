@@ -30,10 +30,9 @@ import android.util.Base64
 import android.util.Pair
 import android.view.*
 import androidx.lifecycle.MutableLiveData
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.compatibility.PhoneStateInterface
-import com.cans.canscloud_android_sdk.CansCloudApplication
-import com.cans.canscloud_android_sdk.CansCenter.Companion.corePreferences
 import com.cans.canscloud_android_sdk.telecom.TelecomHelper
 import java.io.File
 import java.math.BigInteger
@@ -56,10 +55,9 @@ import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import com.cans.canscloud_android_sdk.utils.*
 import com.cans.canscloud_android_sdk.utils.Event
-import kotlinx.coroutines.internal.synchronized
 
 
-class CoreContext (val context: Context, coreConfig: Config) {
+class CoreContextCansBase (val context: Context, coreConfig: Config) {
 
     var stopped = false
     val core: Core
@@ -529,7 +527,7 @@ class CoreContext (val context: Context, coreConfig: Config) {
 
     fun handleClick(key: Char) {
 //        LinphoneApplication.coreContext.core.playDtmf(key, 1)
-         coreContext.core.currentCall?.sendDtmf(key)
+        coreContextCansBase.core.currentCall?.sendDtmf(key)
     }
 
     fun startCall(to: String) {

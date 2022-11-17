@@ -24,7 +24,7 @@ import android.app.RemoteInput
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import org.linphone.core.Call
 import org.linphone.core.Core
@@ -47,7 +47,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
             Log.e("[Notification Broadcast Receiver] Remote SIP address is null for notification id $notificationId")
             return
         }
-        val core: Core = coreContext.core
+        val core: Core = coreContextCansBase.core
 
         val remoteAddress = core.interpretUrl(remoteSipAddress)
         if (remoteAddress == null) {
@@ -82,11 +82,11 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
 
             val msg = room.createMessageFromUtf8(reply)
             msg.userData = notificationId
-            msg.addListener(coreContext.notificationsManager.chatListener)
+            msg.addListener(coreContextCansBase.notificationsManager.chatListener)
             msg.send()
             Log.i("[Notification Broadcast Receiver] Reply sent for notif id $notificationId")
         } else {
-            if (!coreContext.notificationsManager.dismissChatNotification(room)) {
+            if (!coreContextCansBase.notificationsManager.dismissChatNotification(room)) {
                 Log.w("[Notification Broadcast Receiver] Notifications Manager failed to cancel notification")
                 val notificationManager = context.getSystemService(NotificationManager::class.java)
                 notificationManager.cancel(NotificationsManager.CHAT_TAG, notificationId)
@@ -101,7 +101,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
             return
         }
 
-        val core: Core = coreContext.core
+        val core: Core = coreContextCansBase.core
 
         val remoteAddress = core.interpretUrl(remoteSipAddress)
         val call = if (remoteAddress != null) core.getCallByRemoteAddress2(remoteAddress) else null
@@ -111,14 +111,14 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (intent.action == NotificationsManager.INTENT_ANSWER_CALL_NOTIF_ACTION) {
-            coreContext.answerCall(call)
+            coreContextCansBase.answerCall(call)
         } else {
             if (call.state == Call.State.IncomingReceived ||
                 call.state == Call.State.IncomingEarlyMedia
             ) {
-                coreContext.declineCall(call)
+                coreContextCansBase.declineCall(call)
             } else {
-                coreContext.terminateCall(call)
+                coreContextCansBase.terminateCall(call)
             }
         }
     }

@@ -30,13 +30,8 @@ import android.os.Bundle
 import android.webkit.MimeTypeMap
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.Person
-import androidx.core.app.RemoteInput
-import androidx.core.content.ContextCompat
-import androidx.core.content.LocusIdCompat
-import androidx.core.graphics.drawable.IconCompat
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
-import com.cans.canscloud_android_sdk.CansCenter.Companion.corePreferences
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.contact.Contact
 import com.cans.canscloud_android_sdk.core.*
@@ -232,7 +227,7 @@ class NotificationsManager(private val context: Context) {
     }
 
     fun onCoreReady() {
-        coreContext.core.addListener(listener)
+        coreContextCansBase.core.addListener(listener)
     }
 
     fun destroy() {
@@ -254,7 +249,7 @@ class NotificationsManager(private val context: Context) {
             }
         }
 
-        coreContext.core.removeListener(listener)
+        coreContextCansBase.core.removeListener(listener)
     }
 
     private fun notify(id: Int, notification: Notification, tag: String? = null) {
@@ -308,9 +303,9 @@ class NotificationsManager(private val context: Context) {
                     Log.i("[Notifications Manager] There is already a foreground service notification, no need to use the call notification to keep Service alive")
                 }
             }
-            coreContext.core.callsNb > 0 -> {
+            coreContextCansBase.core.callsNb > 0 -> {
                 // When this method will be called, we won't have any notification yet
-                val call = coreContext.core.currentCall ?: coreContext.core.calls[0]
+                val call = coreContextCansBase.core.currentCall ?: coreContextCansBase.core.calls[0]
                 when (call.state) {
                     Call.State.IncomingReceived, Call.State.IncomingEarlyMedia -> {
                         Log.i("[Notifications Manager] Waiting for call to be in state Connected before creating service notification")

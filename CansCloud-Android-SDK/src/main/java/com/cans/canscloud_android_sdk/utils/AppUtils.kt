@@ -28,7 +28,7 @@ import android.os.Bundle
 import android.text.format.Formatter.formatShortFileSize
 import android.util.TypedValue
 import androidx.core.content.res.ResourcesCompat
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import java.util.*
 import org.linphone.core.tools.Log
 
@@ -38,19 +38,19 @@ import org.linphone.core.tools.Log
 class AppUtils {
     companion object {
         fun getString(id: Int): String {
-            return coreContext.context.getString(id)
+            return coreContextCansBase.context.getString(id)
         }
 
         fun getStringWithPlural(id: Int, count: Int): String {
-            return coreContext.context.resources.getQuantityString(id, count, count)
+            return coreContextCansBase.context.resources.getQuantityString(id, count, count)
         }
 
         fun getStringWithPlural(id: Int, count: Int, value: String): String {
-            return coreContext.context.resources.getQuantityString(id, count, value)
+            return coreContextCansBase.context.resources.getQuantityString(id, count, value)
         }
 
         fun getDimension(id: Int): Float {
-            return coreContext.context.resources.getDimension(id)
+            return coreContextCansBase.context.resources.getDimension(id)
         }
 
         fun getInitials(displayName: String, limit: Int = 2): String {
@@ -91,7 +91,7 @@ class AppUtils {
             return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 pixels,
-                coreContext.context.resources.displayMetrics
+                coreContextCansBase.context.resources.displayMetrics
             )
         }
 
@@ -100,7 +100,7 @@ class AppUtils {
         }
 
         fun bytesToDisplayableSize(bytes: Long): String {
-            return formatShortFileSize(coreContext.context, bytes)
+            return formatShortFileSize(coreContextCansBase.context, bytes)
         }
 
 //        fun shareUploadedLogsUrl(activity: Activity, info: String) {

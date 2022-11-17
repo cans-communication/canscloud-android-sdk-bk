@@ -24,7 +24,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.core.app.Person
 import androidx.core.graphics.drawable.IconCompat
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.R
 import com.cans.canscloud_android_sdk.utils.LinphoneUtils
 import org.linphone.core.Address
@@ -121,7 +121,7 @@ open class Contact() : Comparable<Contact> {
             return org.compareTo(otherOrg)
         }
 
-        return coreContext.collator.compare(fn, otherFn)
+        return coreContextCansBase.collator.compare(fn, otherFn)
     }
 
     @Synchronized

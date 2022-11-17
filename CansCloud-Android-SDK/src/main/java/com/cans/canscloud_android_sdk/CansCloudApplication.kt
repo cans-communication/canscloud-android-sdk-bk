@@ -23,14 +23,11 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LifecycleObserver
-import com.cans.canscloud_android_sdk.CansCenter.Companion.ensureCoreExists
-import com.cans.canscloud_android_sdk.core.CoreContext
+import com.cans.canscloud_android_sdk.core.CoreContextCansBase
 import com.cans.canscloud_android_sdk.core.CorePreferences
-import com.cans.canscloud_android_sdk.utils.LinphoneUtils
 import org.linphone.core.*
 import org.linphone.core.tools.Log
-import org.linphone.core.tools.service.CoreService
-import org.linphone.mediastream.Version
+
 //import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 
 class CansCloudApplication : Application(), LifecycleObserver {
@@ -38,10 +35,11 @@ class CansCloudApplication : Application(), LifecycleObserver {
         @SuppressLint("StaticFieldLeak")
         lateinit var corePreferences: CorePreferences
         @SuppressLint("StaticFieldLeak")
-        lateinit var coreContext: CoreContext
+        lateinit var coreContextCansBase: CoreContextCansBase
+
 
         fun ensureCoreExists(context: Context, pushReceived: Boolean = false) {
-            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion::coreContext.isInitialized && !com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext.stopped) {
+            if (Companion::coreContextCansBase.isInitialized && !coreContextCansBase.stopped) {
                 Log.d("[Application] Skipping Core creation (push received? $pushReceived)")
                 return
             }
@@ -49,32 +47,35 @@ class CansCloudApplication : Application(), LifecycleObserver {
             Factory.instance().setLogCollectionPath(context.filesDir.absolutePath)
             Factory.instance().enableLogCollection(LogCollectionState.Enabled)
 
-            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences = CorePreferences(context)
-            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.copyAssetsFromPackage()
+            corePreferences = CorePreferences(context)
+            corePreferences.copyAssetsFromPackage()
 
-            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.vfsEnabled) {
-                CoreContext.activateVFS()
+            if (corePreferences.vfsEnabled) {
+                CoreContextCansBase.activateVFS()
             }
 
-            val config = Factory.instance().createConfigWithFactory(com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.configPath, com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.factoryConfigPath)
-            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.config = config
+            val config = Factory.instance().createConfigWithFactory(corePreferences.configPath, corePreferences.factoryConfigPath)
+            corePreferences.config = config
 
-            val appName = context.getString(com.cans.canscloud_android_sdk.R.string.app_name)
+            val appName = context.getString(R.string.app_name)
             Factory.instance().setLoggerDomain(appName)
-            Factory.instance().enableLogcatLogs(com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.logcatLogsOutput)
-            if (com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences.debugLogs) {
+            Factory.instance().enableLogcatLogs(corePreferences.logcatLogsOutput)
+            if (corePreferences.debugLogs) {
                 Factory.instance().loggingService.setLogLevel(LogLevel.Message)
             }
 
             Log.i("[Application] Core context created ${if (pushReceived) "from push" else ""}")
-            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext = CoreContext(context, config)
-            com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContext.start()
+            coreContextCansBase = CoreContextCansBase(context, config)
+            coreContextCansBase.start()
         }
     }
 
 
-
-    fun configCoreApp(context: Context){
-        com.cans.canscloud_android_sdk.CansCloudApplication.Companion.ensureCoreExists(context)
+    override fun onCreate() {
+        super.onCreate()
+        val appName = getString(R.string.app_name)
+        android.util.Log.i("[$appName]", "Application is being created")
+        ensureCoreExists(applicationContext)
+        Log.i("[Application] Created")
     }
 }

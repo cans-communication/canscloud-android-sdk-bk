@@ -23,12 +23,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.hardware.usb.UsbDevice.getDeviceName
 import androidx.appcompat.resources.Compatibility
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 
 
 import org.linphone.core.*
@@ -38,7 +38,7 @@ import java.security.KeyStoreException
 class CorePreferences constructor(private val context: Context) {
     private var _config: Config? = null
     var config: Config
-        get() = _config ?: coreContext.core.config
+        get() = _config ?: coreContextCansBase.core.config
         set(value) {
             _config = value
         }
@@ -99,12 +99,12 @@ class CorePreferences constructor(private val context: Context) {
         }
 
     fun chatRoomMuted(id: String): Boolean {
-        val sharedPreferences: SharedPreferences = coreContext.context.getSharedPreferences("notifications", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = coreContextCansBase.context.getSharedPreferences("notifications", Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean(id, false)
     }
 
     fun muteChatRoom(id: String, mute: Boolean) {
-        val sharedPreferences: SharedPreferences = coreContext.context.getSharedPreferences("notifications", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = coreContextCansBase.context.getSharedPreferences("notifications", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putBoolean(id, mute)
         editor.apply()

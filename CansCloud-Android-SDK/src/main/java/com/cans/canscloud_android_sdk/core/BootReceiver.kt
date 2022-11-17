@@ -25,8 +25,7 @@ import android.content.Intent
 import androidx.appcompat.resources.Compatibility
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startForegroundService
-import com.cans.canscloud_android_sdk.CansCenter.Companion.coreContext
-import com.cans.canscloud_android_sdk.CansCenter.Companion.corePreferences
+import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.R
 import org.linphone.core.tools.Log
 
