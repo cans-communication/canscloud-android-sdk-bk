@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
+import com.cans.canscloud_android_sdk.callback.ContextCallback
 import com.cans.canscloud_android_sdk.core.CoreContextCansBase
 import com.cans.canscloud_android_sdk.core.CorePreferences
 import com.cans.canscloud_android_sdk.model.PhonebookContacts
 import com.cans.canscloud_android_sdk.retrofit.ApiCallback
 import com.cans.canscloud_android_sdk.retrofit.RetrofitClient
+import org.linphone.core.CoreListenerStub
 import org.linphone.core.Factory
 import org.linphone.core.LogCollectionState
 import org.linphone.core.LogLevel
@@ -98,6 +100,14 @@ class CansCenter {
                 //setLastOutgoingCallAddress()
             }
         }
+
+        fun callConfig(context: Context){
+            CansCloudApplication.ensureCoreExists(context)
+        }
+
+
+
+
 
         fun getCountCalls(): Int {
             val call = coreContextCansBase.core.callsNb

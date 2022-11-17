@@ -51,6 +51,7 @@ import org.linphone.core.*
 import org.linphone.core.tools.Log
 import org.linphone.mediastream.Version
 import com.cans.canscloud_android_sdk.R
+import com.cans.canscloud_android_sdk.callback.ContextCallback
 import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import com.cans.canscloud_android_sdk.utils.*
@@ -101,6 +102,8 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     private var callOverlay: View? = null
     private var previousCallState = Call.State.Idle
     private lateinit var phoneStateListener: PhoneStateInterface
+    private lateinit var contextCallback: ContextCallback
+
 
     private val listener: CoreListenerStub = object : CoreListenerStub() {
         override fun onGlobalStateChanged(core: Core, state: GlobalState, message: String) {
@@ -280,6 +283,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
         Log.i("[Context] Starting")
 
         core.addListener(listener)
+
 
         // CoreContext listener must be added first!
         if (Version.sdkAboveOrEqual(Version.API26_O_80) && corePreferences.useTelecomManager) {
@@ -531,6 +535,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     }
 
     fun startCall(to: String) {
+        this@CoreContextCansBase.contextCallback = contextCallback
         var stringAddress = to
 //        if (android.util.Patterns.PHONE.matcher(to).matches()) {
 //            val contact: Contact? = contactsManager.findContactByPhoneNumber(to)
@@ -552,6 +557,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     }
 
     fun startCall(address: Address, forceZRTP: Boolean = false, localAddress: Address? = null) {
+        this@CoreContextCansBase.contextCallback = contextCallback
         if (!core.isNetworkReachable) {
             Log.e("[Context] Network unreachable, abort outgoing call")
             callErrorMessageResourceId.value = Event(context.getString(R.string.call_error_network_unreachable))
@@ -742,7 +748,10 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             return
         }
 
-        Log.i("[Context] Starting IncomingCallActivity")
+        contextCallback.onIncomingReceived()
+
+
+        Log.i("[SDK Context] Starting IncomingCallActivity")
 //        val intent = Intent(context, IncomingCallActivity::class.java)
 //        // This flag is required to start an Activity from a Service context
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -754,8 +763,8 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[Context] We were asked to not show the outgoing call screen")
             return
         }
-
-        Log.i("[Context] Starting OutgoingCallActivity")
+        contextCallback.onOutgoingStarted()
+        Log.i("[SDK Context] Starting OutgoingCallActivity")
 //        val intent = Intent(context, OutgoingCallActivity::class.java)
 //        // This flag is required to start an Activity from a Service context
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -764,9 +773,11 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
 
     fun onCallStarted() {
         if (corePreferences.preventInterfaceFromShowingUp) {
-            Log.w("[Context] We were asked to not show the call screen")
+            Log.w("[SDK Context] We were asked to not show the call screen")
             return
         }
+        contextCallback.onCallStarted()
+
 
         Log.i("[Context] Starting CallActivity")
 //        val intent = Intent(context, CallActivity::class.java)
