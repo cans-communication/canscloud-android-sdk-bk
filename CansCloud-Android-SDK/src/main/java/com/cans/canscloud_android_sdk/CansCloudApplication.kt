@@ -28,8 +28,6 @@ import com.cans.canscloud_android_sdk.core.CorePreferences
 import org.linphone.core.*
 import org.linphone.core.tools.Log
 
-//import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
-
 class CansCloudApplication : Application(), LifecycleObserver {
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -37,9 +35,8 @@ class CansCloudApplication : Application(), LifecycleObserver {
         @SuppressLint("StaticFieldLeak")
         lateinit var coreContextCansBase: CoreContextCansBase
 
-
         fun ensureCoreExists(context: Context, pushReceived: Boolean = false) {
-            if (Companion::coreContextCansBase.isInitialized && !coreContextCansBase.stopped) {
+            if (Companion::coreContextCansBase.isInitialized && !Companion.coreContextCansBase.stopped) {
                 Log.d("[Application] Skipping Core creation (push received? $pushReceived)")
                 return
             }
@@ -48,7 +45,7 @@ class CansCloudApplication : Application(), LifecycleObserver {
             Factory.instance().enableLogCollection(LogCollectionState.Enabled)
 
             corePreferences = CorePreferences(context)
-            corePreferences.copyAssetsFromPackage()
+           // corePreferences.copyAssetsFromPackage()
 
             if (corePreferences.vfsEnabled) {
                 CoreContextCansBase.activateVFS()
