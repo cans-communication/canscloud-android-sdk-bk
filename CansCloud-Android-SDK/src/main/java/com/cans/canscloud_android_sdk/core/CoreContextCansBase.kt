@@ -102,7 +102,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     private var callOverlay: View? = null
     private var previousCallState = Call.State.Idle
     private lateinit var phoneStateListener: PhoneStateInterface
-    private lateinit var contextCallback: ContextCallback
+   // private lateinit var contextCallback: ContextCallback
 
 
     private val listener: CoreListenerStub = object : CoreListenerStub() {
@@ -535,7 +535,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     }
 
     fun startCall(to: String) {
-        this@CoreContextCansBase.contextCallback = contextCallback
         var stringAddress = to
 //        if (android.util.Patterns.PHONE.matcher(to).matches()) {
 //            val contact: Contact? = contactsManager.findContactByPhoneNumber(to)
@@ -557,7 +556,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     }
 
     fun startCall(address: Address, forceZRTP: Boolean = false, localAddress: Address? = null) {
-        this@CoreContextCansBase.contextCallback = contextCallback
         if (!core.isNetworkReachable) {
             Log.e("[Context] Network unreachable, abort outgoing call")
             callErrorMessageResourceId.value = Event(context.getString(R.string.call_error_network_unreachable))
