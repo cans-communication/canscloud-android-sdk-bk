@@ -748,7 +748,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             return
         }
 
-        contextCallback.onIncomingReceived()
+     //   contextCallback.onIncomingReceived()
 
 
         Log.i("[SDK Context] Starting IncomingCallActivity")
@@ -763,7 +763,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[Context] We were asked to not show the outgoing call screen")
             return
         }
-        contextCallback.onOutgoingStarted()
+      //  contextCallback.onOutgoingStarted()
         Log.i("[SDK Context] Starting OutgoingCallActivity")
 //        val intent = Intent(context, OutgoingCallActivity::class.java)
 //        // This flag is required to start an Activity from a Service context
@@ -776,7 +776,7 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[SDK Context] We were asked to not show the call screen")
             return
         }
-        contextCallback.onCallStarted()
+       // contextCallback.onCallStarted()
 
 
         Log.i("[Context] Starting CallActivity")
