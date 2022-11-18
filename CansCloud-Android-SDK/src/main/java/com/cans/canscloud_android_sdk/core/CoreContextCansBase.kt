@@ -32,8 +32,18 @@ import android.view.*
 import androidx.lifecycle.MutableLiveData
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
+import com.cans.canscloud_android_sdk.R
+import com.cans.canscloud_android_sdk.callback.ContextCallback
+import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.compatibility.PhoneStateInterface
+import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import com.cans.canscloud_android_sdk.telecom.TelecomHelper
+import com.cans.canscloud_android_sdk.utils.*
+import com.cans.canscloud_android_sdk.utils.Event
+import kotlinx.coroutines.*
+import org.linphone.core.*
+import org.linphone.core.tools.Log
+import org.linphone.mediastream.Version
 import java.io.File
 import java.math.BigInteger
 import java.nio.charset.StandardCharsets
@@ -46,16 +56,6 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import kotlin.concurrent.schedule
-import kotlinx.coroutines.*
-import org.linphone.core.*
-import org.linphone.core.tools.Log
-import org.linphone.mediastream.Version
-import com.cans.canscloud_android_sdk.R
-import com.cans.canscloud_android_sdk.callback.ContextCallback
-import com.cans.canscloud_android_sdk.compatibility.Compatibility
-import com.cans.canscloud_android_sdk.notifications.NotificationsManager
-import com.cans.canscloud_android_sdk.utils.*
-import com.cans.canscloud_android_sdk.utils.Event
 
 
 class CoreContextCansBase (val context: Context, coreConfig: Config) {
@@ -67,6 +67,9 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
 
     var screenWidth: Float = 0f
     var screenHeight: Float = 0f
+
+    var callbackListener = ArrayList<ContextCallback>()
+
 
 //    val appVersion: String by lazy {
 //        val appVersion = com.cans.canscloud_android_sdk.BuildConfig.VERSION_NAME
@@ -103,7 +106,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     private var previousCallState = Call.State.Idle
     private lateinit var phoneStateListener: PhoneStateInterface
    // private lateinit var contextCallback: ContextCallback
-
 
     private val listener: CoreListenerStub = object : CoreListenerStub() {
         override fun onGlobalStateChanged(core: Core, state: GlobalState, message: String) {
@@ -746,8 +748,9 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             return
         }
 
-     //   contextCallback.onIncomingReceived()
-
+        callbackListener.forEach(){
+                it ->it.onIncomingReceived()
+        }
 
         Log.i("[SDK Context] Starting IncomingCallActivity")
 //        val intent = Intent(context, IncomingCallActivity::class.java)
@@ -761,7 +764,9 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[Context] We were asked to not show the outgoing call screen")
             return
         }
-      //  contextCallback.onOutgoingStarted()
+        callbackListener.forEach(){
+            it ->it.onOutgoingStarted()
+        }
         Log.i("[SDK Context] Starting OutgoingCallActivity")
 //        val intent = Intent(context, OutgoingCallActivity::class.java)
 //        // This flag is required to start an Activity from a Service context
@@ -774,8 +779,10 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[SDK Context] We were asked to not show the call screen")
             return
         }
-       // contextCallback.onCallStarted()
 
+        callbackListener.forEach(){
+                it ->it.onCallStarted()
+        }
 
         Log.i("[Context] Starting CallActivity")
 //        val intent = Intent(context, CallActivity::class.java)

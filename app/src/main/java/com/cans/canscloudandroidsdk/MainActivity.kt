@@ -10,9 +10,12 @@ import com.cans.canscloud_android_sdk.model.PhonebookContacts
 import com.cans.canscloud_android_sdk.retrofit.ApiCallback
 
 class MainActivity : AppCompatActivity(),ContextCallback {
+    var callback: CansCenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+       // CansCenter.registerListener(this)
         CansCenter.exToast(this, "Hello World")
         CansCenter.fetchPhonebook("cns.cans.cc","39706", object : ApiCallback<PhonebookContacts> {
             override fun onSuccess(response: PhonebookContacts) {
@@ -28,7 +31,6 @@ class MainActivity : AppCompatActivity(),ContextCallback {
         Log.d("MainActivity : ","count calls: $count")
 
         CansCenter.startCall("0838927729")
-
 
     }
 
