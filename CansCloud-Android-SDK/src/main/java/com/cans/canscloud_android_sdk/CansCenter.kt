@@ -18,6 +18,7 @@ import org.linphone.core.tools.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.ArrayList
 
 class CansCenter {
     companion object {
@@ -58,6 +59,10 @@ class CansCenter {
             CansCloudApplication.ensureCoreExists(context)
         }
 
+        fun registerListenerCall(listener: ContextCallback){
+            CoreContextCansBase.CallbackListeners.registerListener(listener)
+        }
+
         fun getCountCalls(): Int {
             val call = coreContextCansBase.core.callsNb
             Log.i("[Application] getCountCalls : $call")
@@ -65,6 +70,9 @@ class CansCenter {
         }
 
         fun startCall(addressToCall: String) {
+
+            android.util.Log.d("MainActivity : ","startCall")
+
             val addressToCall = addressToCall
             if (addressToCall.isNotEmpty()) {
                 coreContextCansBase.startCall(addressToCall)
@@ -85,13 +93,13 @@ class CansCenter {
             }
         }
 
-//        private val listeners: MutableSet<ContextCallback> = mutableSetOf()
-//        fun registerListener(listener: ContextCallback) {
-//            listeners.add(listener)
-//        }
-//
-//        fun unRegisterListener(listener: ContextCallback) {
-//            listeners.remove(listener)
-//        }
+        private val listeners: MutableSet<ContextCallback> = mutableSetOf()
+        fun registerListener(listener: ContextCallback) {
+            listeners.add(listener)
+        }
+
+        fun unRegisterListener(listener: ContextCallback) {
+            listeners.remove(listener)
+        }
     }
 }

@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(),ContextCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-       // CansCenter.registerListener(this)
+        CansCenter.registerListenerCall(this)
         CansCenter.exToast(this, "Hello World")
         CansCenter.fetchPhonebook("cns.cans.cc","39706", object : ApiCallback<PhonebookContacts> {
             override fun onSuccess(response: PhonebookContacts) {
