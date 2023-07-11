@@ -33,7 +33,6 @@ import androidx.core.app.NotificationManagerCompat
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.compatibility.Compatibility
-import com.cans.canscloud_android_sdk.contact.Contact
 import com.cans.canscloud_android_sdk.core.*
 import com.cans.canscloud_android_sdk.utils.AppUtils
 import com.cans.canscloud_android_sdk.utils.LinphoneUtils
@@ -45,7 +44,7 @@ import org.linphone.core.tools.Log
 import org.linphone.core.tools.service.CoreService
 
 class Notifiable(val notificationId: Int) {
-    val messages: ArrayList<NotifiableMessage> = arrayListOf()
+    //val messages: ArrayList<NotifiableMessage> = arrayListOf()
 
     var isGroup: Boolean = false
     var groupTitle: String? = null
@@ -54,16 +53,16 @@ class Notifiable(val notificationId: Int) {
     var remoteAddress: String? = null
 }
 
-class NotifiableMessage(
-    var message: String,
-    val contact: Contact?,
-    val sender: String,
-    val time: Long,
-    val senderAvatar: Bitmap? = null,
-    var filePath: Uri? = null,
-    var fileMime: String? = null,
-    val isOutgoing: Boolean = false
-)
+//class NotifiableMessage(
+//    var message: String,
+//    val contact: Contact?,
+//    val sender: String,
+//    val time: Long,
+//    val senderAvatar: Bitmap? = null,
+//    var filePath: Uri? = null,
+//    var fileMime: String? = null,
+//    val isOutgoing: Boolean = false
+//)
 
 class NotificationsManager(private val context: Context) {
     companion object {
@@ -264,7 +263,7 @@ class NotificationsManager(private val context: Context) {
 
     fun resetChatNotificationCounterForSipUri(sipUri: String) {
         val notifiable: Notifiable? = chatNotificationsMap[sipUri]
-        notifiable?.messages?.clear()
+      //  notifiable?.messages?.clear()
     }
 
     /* Service related */
@@ -718,7 +717,7 @@ class NotificationsManager(private val context: Context) {
         val notifiable: Notifiable? = chatNotificationsMap[address]
         if (notifiable != null) {
             Log.i("[Notifications Manager] Dismissing notification for chat room $room with id ${notifiable.notificationId}")
-            notifiable.messages.clear()
+           // notifiable.messages.clear()
             cancel(notifiable.notificationId, CHAT_TAG)
             return true
         } else {

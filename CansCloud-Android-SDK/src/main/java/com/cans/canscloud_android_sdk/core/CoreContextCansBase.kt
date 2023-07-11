@@ -34,10 +34,8 @@ import com.cans.canscloud_android_sdk.CansCenter
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import com.cans.canscloud_android_sdk.R
-import com.cans.canscloud_android_sdk.callback.ContextCallback
 import com.cans.canscloud_android_sdk.compatibility.Compatibility
 import com.cans.canscloud_android_sdk.compatibility.PhoneStateInterface
-import com.cans.canscloud_android_sdk.core.CoreContextCansBase.CallbackListeners.listeners
 import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import com.cans.canscloud_android_sdk.telecom.TelecomHelper
 import com.cans.canscloud_android_sdk.utils.*
@@ -60,16 +58,6 @@ import javax.crypto.spec.GCMParameterSpec
 import kotlin.concurrent.schedule
 
 class CoreContextCansBase (val context: Context, coreConfig: Config) {
-     object CallbackListeners {
-         val listeners: MutableSet<ContextCallback> = mutableSetOf()
-         fun registerListener(listener: ContextCallback) {
-             listeners.add(listener)
-         }
-
-         fun unRegisterListener(listener: ContextCallback) {
-             listeners.remove(listener)
-         }
-    }
 
     var stopped = false
     val core: Core
@@ -79,7 +67,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     var screenWidth: Float = 0f
     var screenHeight: Float = 0f
 
-    var callbackListener = ArrayList<ContextCallback>()
 
 
 
@@ -763,7 +750,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             return
         }
 
-        listeners.forEach { it.onIncomingReceived() }
 
 
         Log.i("[SDK Context] Starting IncomingCallActivity")
@@ -778,7 +764,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             Log.w("[Context] We were asked to not show the outgoing call screen")
             return
         }
-        listeners.forEach { it.onOutgoingStarted() }
 
         Log.i("[SDK Context] Starting OutgoingCallActivity")
 //        val intent = Intent(context, OutgoingCallActivity::class.java)
@@ -793,7 +778,6 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
             return
         }
 
-        listeners.forEach { it.onCallStarted() }
 
 
         Log.i("[Context] Starting CallActivity")

@@ -20,27 +20,16 @@
 package com.cans.canscloud_android_sdk.compatibility
 
 import android.app.Activity
-import android.app.Notification
-import android.app.PendingIntent
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.os.Vibrator
 import android.telephony.TelephonyManager
 import android.view.View
-import android.view.WindowManager
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import cc.cans.canscloud.compatibility.*
-import com.cans.canscloud_android_sdk.notifications.Notifiable
-import com.cans.canscloud_android_sdk.notifications.NotificationsManager
 import com.cans.canscloud_android_sdk.telecom.NativeCallWrapper
 import java.util.*
-import org.linphone.core.Call
 import org.linphone.core.ChatRoom
 import org.linphone.core.Content
 import org.linphone.mediastream.Version

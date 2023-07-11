@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package cc.cans.canscloud.compatibility
+package com.cans.canscloud_android_sdk.compatibility
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
