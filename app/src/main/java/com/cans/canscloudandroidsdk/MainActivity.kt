@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        CansCenter.exToast(this, "Hello World")
+        CansCenter.exToast(this, "Hello World test")
 
         var count = CansCenter.getCountCalls()
         Log.d("MainActivity : ","count calls: $count")
