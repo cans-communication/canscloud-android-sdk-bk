@@ -5,6 +5,10 @@ pluginManagement {
         mavenCentral()
 
         maven { url 'https://jitpack.io' }
+
+        maven {
+            url "https://linphone.org/maven_repository"
+        }
     }
     plugins {
         id "io.github.gradle-nexus.publish-plugin" version "1.0.0"
@@ -32,6 +36,10 @@ dependencyResolutionManagement {
             content {
                 includeGroup "org.linphone"
             }
+        }
+
+        maven {
+            url "https://linphone.org/maven_repository"
         }
     }
 }
