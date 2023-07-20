@@ -29,6 +29,7 @@ import android.telephony.TelephonyManager
 import android.util.Base64
 import android.util.Pair
 import android.view.*
+import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import com.cans.canscloud_android_sdk.CansCenter
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
@@ -536,6 +537,28 @@ class CoreContextCansBase (val context: Context, coreConfig: Config) {
     fun handleClick(key: Char) {
 //        LinphoneApplication.coreContext.core.playDtmf(key, 1)
         coreContextCansBase.core.currentCall?.sendDtmf(key)
+    }
+
+    fun outgoingCall() {
+        // As for everything we need to get the SIP URI of the remote and convert it to an Address
+       // val remoteSipUri = findViewById<EditText>(org.linphone.core.R.id.remote_address).text.toString()
+        val remoteAddress = Factory.instance().createAddress("sip:50105@test.cans.cc:8446")
+        remoteAddress ?: return // If address parsing fails, we can't continue with outgoing call process
+
+        // We also need a CallParams object
+        // Create call params expects a Call object for incoming calls, but for outgoing we must use null safely
+        val params = core.createCallParams(null)
+        params ?: return // Same for params
+
+        // We can now configure it
+        // Here we ask for no encryption but we could ask for ZRTP/SRTP/DTLS
+        params.mediaEncryption = MediaEncryption.None
+        // If we wanted to start the call with video directly
+        //params.enableVideo(true)
+
+        // Finally we start the call
+        core.inviteAddressWithParams(remoteAddress, params)
+        // Call process can be followed in onCallStateChanged callback from core listener
     }
 
     fun startCall(to: String) {

@@ -1,8 +1,15 @@
 package com.cans.canscloud_android_sdk
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.requestPermissions
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
 import org.linphone.core.AccountCreator
@@ -12,6 +19,7 @@ import org.linphone.core.Factory
 import org.linphone.core.LogCollectionState
 import org.linphone.core.LogLevel
 import org.linphone.core.ProxyConfig
+import org.linphone.core.R
 import org.linphone.core.RegistrationState
 import org.linphone.core.TransportType
 import org.linphone.core.tools.Log
@@ -23,21 +31,59 @@ import java.util.Locale
 
 class CansCenter {
     companion object {
-
+        private lateinit var core: Core
         private var proxyConfigToCheck: ProxyConfig? = null
         private lateinit var accountCreator: AccountCreator
         private var useGenericSipAccount: Boolean = false
+        var packageManager : PackageManager? = null
+        var packageName : String = ""
 
-        fun exToast(context: Context, text: String) {
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-        }
-
-        //----------*** Calling ***----------
-        fun callConfig(context: Context) {
+        fun config(context: Context, packageManager: PackageManager, packageName: String) {
             CansCloudApplication.ensureCoreExists(context)
+            this.packageManager = packageManager
+            this.packageName = packageName
+//            val factory = Factory.instance()
+//            factory.setDebugMode(true, "Hello Linphone")
+//            core = factory.createCore(null, null, context)
+
         }
 
-        fun register() {
+        /*fun login(activity: Activity) {
+            var username = "50104"
+            var password = "p50104CNS"
+            var domain = "test.cans.cc:8446"
+            val transportType = TransportType.Tcp
+            val authInfo = Factory.instance().createAuthInfo(username, null, password, null, null, domain, null)
+
+            val params = core.createAccountParams()
+            val identity = Factory.instance().createAddress("sip:$username@$domain")
+            params.identityAddress = identity
+
+            val address = Factory.instance().createAddress("sip:$domain")
+            address?.transport = transportType
+            params.serverAddress = address
+            params.isRegisterEnabled = true
+            val account = core.createAccount(params)
+
+            core.addAuthInfo(authInfo)
+            core.addAccount(account)
+
+            // Asks the CaptureTextureView to resize to match the captured video's size ratio
+            //core.config.setBool("video", "auto_resize_preview_to_keep_ratio", true)
+
+            core.defaultAccount = account
+            core.addListener(coreListener)
+            core.start()
+
+            // We will need the RECORD_AUDIO permission for video call
+            if (packageManager?.checkPermission(Manifest.permission.RECORD_AUDIO, packageName) != PackageManager.PERMISSION_GRANTED) {
+                activity.requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 0)
+                return
+            }
+        }*/
+
+        fun register(activity: Activity) {
+
             var accountCreator = getAccountCreator(true)
             coreContextCansBase.core.addListener(coreListener)
 
@@ -72,18 +118,23 @@ class CansCenter {
                 corePreferences.keepServiceAlive = true
                 coreContextCansBase.notificationsManager.startForeground()
             }
+
+            if (packageManager?.checkPermission(Manifest.permission.RECORD_AUDIO, packageName) != PackageManager.PERMISSION_GRANTED) {
+                activity.requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 0)
+                return
+            }
         }
 
-        fun checkDefaultAccount(): String {
+        fun username(): String {
             val defaultAccount =
                 coreContextCansBase.core.defaultAccount?.params?.identityAddress?.username.toString()
             val domain =
                 coreContextCansBase.core.defaultAccount?.params?.identityAddress?.domain.toString()
 
-            return "${defaultAccount} ${domain}"
+            return "$defaultAccount $domain"
         }
 
-        fun getAccountCreator(genericAccountCreator: Boolean = false): AccountCreator {
+        private fun getAccountCreator(genericAccountCreator: Boolean = false): AccountCreator {
 
             coreContextCansBase.core.loadConfigFromXml(corePreferences.linphoneDefaultValuesPath)
             accountCreator =
@@ -116,7 +167,7 @@ class CansCenter {
         fun startCall(addressToCall: String) {
 
             android.util.Log.d("MainActivity : ", "startCall")
-
+            //coreContextCansBase.outgoingCall()
             val addressToCall = addressToCall
             if (addressToCall.isNotEmpty()) {
                 coreContextCansBase.startCall(addressToCall)
@@ -128,7 +179,14 @@ class CansCenter {
 
 
         fun terminateCall() {
-            //  coreContextCansBase.terminateCall(call)
+            if (core.callsNb == 0) return
+
+            // If the call state isn't paused, we can get it using core.currentCall
+            val call = if (core.currentCall != null) core.currentCall else core.calls[0]
+            call ?: return
+
+            // Terminating a call is quite simple
+            call.terminate()
         }
 
         private fun setLastOutgoingCallAddress() {

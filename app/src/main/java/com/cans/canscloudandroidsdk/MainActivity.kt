@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telecom.Call
 import android.util.Log
+import android.widget.TextView
 import com.cans.canscloud_android_sdk.CansCenter
 
 class MainActivity : AppCompatActivity() {
@@ -12,16 +13,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        CansCenter.exToast(this, "Hello World test")
+        CansCenter.config(this, packageManager, packageName)
+        CansCenter.register(this)
+        var register = findViewById<TextView>(R.id.register)
+        register.text = CansCenter.username()
 
-        var count = CansCenter.getCountCalls()
-        Log.d("MainActivity : ","count calls: $count")
-
-        CansCenter.register()
-        var extension = CansCenter.checkDefaultAccount()
-        Log.d("MainActivity : ",": $extension")
-
-
+        var button = findViewById<TextView>(R.id.button_Call)
+        button.setOnClickListener {
+            CansCenter.startCall("0838927729")
+        }
     }
 
 }

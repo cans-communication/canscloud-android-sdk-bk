@@ -45,7 +45,7 @@ class CansCloudApplication : Application(), LifecycleObserver {
             Factory.instance().enableLogCollection(LogCollectionState.Enabled)
 
             corePreferences = CorePreferences(context)
-           // corePreferences.copyAssetsFromPackage()
+            corePreferences.copyAssetsFromPackage()
 
             if (corePreferences.vfsEnabled) {
                 CoreContextCansBase.activateVFS()
