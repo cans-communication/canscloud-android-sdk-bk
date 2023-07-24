@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'maven-publish'
 }
 
@@ -58,7 +59,6 @@ android {
         }
 
         debug {
-            debuggable true
             jniDebuggable true
 
             if (crashlyticsEnabled) {
@@ -77,6 +77,13 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -101,19 +108,37 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
-    implementation 'org.linphone:linphone-sdk-android:5.1+'
+    api  'org.linphone:linphone-sdk-android:5.1+'
 
     implementation "androidx.security:security-crypto-ktx:1.1.0-alpha03"
 
 }
 
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.cans-communication'
+            artifactId = 'canscloud-android-sdk'
+            version = '0.7.0'
 
-ext {
-    GROUP_ID = "io.github.cans-communication"
-    ARTIFACT_ID = POM_ARTIFACT_ID
-    VERSION = VERSION_NAME
-    SITE_URL = 'https://github.com/cans-communication/canscloud-android-sdk/tree/develop'
-    GIT_URL = 'https://github.com/cans-communication/canscloud-android-sdk/tree/develop.git'
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
 
-apply from: 'maven-push.gradle'
+//ext {
+//    GROUP_ID = "io.github.cans-communication"
+//    ARTIFACT_ID = POM_ARTIFACT_ID
+//    VERSION = VERSION_NAME
+//    SITE_URL = 'https://github.com/cans-communication/canscloud-android-sdk/tree/develop'
+//    GIT_URL = 'https://github.com/cans-communication/canscloud-android-sdk/tree/develop.git'
+//}
+//
+//
+//apply from: 'maven-push.gradle'
+
+
+
+
