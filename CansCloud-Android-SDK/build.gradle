@@ -39,6 +39,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             //signingConfig signingConfigs.release
             consumerProguardFiles 'library-proguard-rules.pro'
 
@@ -119,7 +120,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.cans-communication'
             artifactId = 'canscloud-android-sdk'
-            version = '0.8.0'
+            version = '0.9.0'
 
             afterEvaluate {
                 from components.release
