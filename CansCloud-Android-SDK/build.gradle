@@ -26,11 +26,11 @@ project.tasks['preBuild'].dependsOn 'linphoneSdkSource'
 
 android {
     namespace 'com.cans.canscloud_android_sdk'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         minSdk 23
-        targetSdk 32
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "library-proguard-rules.pro"
@@ -38,7 +38,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             //signingConfig signingConfigs.release
             consumerProguardFiles 'library-proguard-rules.pro'
 
@@ -119,7 +119,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.cans-communication'
             artifactId = 'canscloud-android-sdk'
-            version = '0.7.0'
+            version = '0.8.0'
 
             afterEvaluate {
                 from components.release
