@@ -122,6 +122,3 @@
 # -keep public interface mypackage.MyInterface
 # -keep public class * implements mypackage.MyInterface
 
--keepclasseswithmembernames class * {
-    native <methods>;
-}
