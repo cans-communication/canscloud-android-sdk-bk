@@ -20,6 +20,13 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keepclasseswithmembernames class * {
-    native <methods>;
+-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter$Companion {
+    <fields>;
+    <methods>;
 }
+
+-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter {
+    <fields>;
+    <methods>;
+}
+
