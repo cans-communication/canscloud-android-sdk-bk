@@ -21,9 +21,9 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep the CansCenter class and all its methods and fields
--keep class com.cans.canscloud_android_sdk.CansCenter {
-    *;
-}
+#-keep class com.cans.canscloud_android_sdk.CansCenter {
+#    *;
+#}
 
 ## Keep the companion object and its members (methods/fields)
 #-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
@@ -39,12 +39,12 @@
 #     config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
 #}
 
-
 -keep class com.cans.canscloud_android_sdk.CansCenter$Companion  {
    public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
    public void startCall(java.lang.String);
    public java.lang.String username();
 }
+
 
 -keep class com.cans.canscloud_android_sdk.CansCenterTest {
    public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
