@@ -24,7 +24,9 @@
 -keep class com.cans.canscloud_android_sdk.CansCenter {
     *;
 }
--keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
-    *;
-}
+
+-keepnames class com.cans.canscloud_android_sdk.CansCenter { *; }
+#-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
+#    *;
+#}
 
