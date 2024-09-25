@@ -21,18 +21,25 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep the CansCenter class and all its methods and fields
+#-keep class com.cans.canscloud_android_sdk.CansCenter {
+#    *;
+#}
+#
+## Keep the companion object and its members (methods/fields)
+#-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
+#    *;
+#}
+#
+## Ensure method names are not obfuscated, especially config method
+#-keepnames class com.cans.canscloud_android_sdk.CansCenter$Companion {
+#    public *;
+#}
+#
+#-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
+#     config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
+#}
+
 -keep class com.cans.canscloud_android_sdk.CansCenter {
-    *;
+	public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
 }
-
-# Keep the companion object and its members (methods/fields)
--keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
-    *;
-}
-
-# Ensure method names are not obfuscated, especially config method
--keepnames class com.cans.canscloud_android_sdk.CansCenter$Companion {
-    public *;
-}
-
 
