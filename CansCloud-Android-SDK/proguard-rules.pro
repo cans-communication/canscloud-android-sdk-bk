@@ -20,13 +20,19 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.cans.canscloud_android_sdk.CansCloudApplication { *; }
+# Keep the CansCenter class and all its methods and fields
 -keep class com.cans.canscloud_android_sdk.CansCenter {
     *;
 }
 
--keepnames class com.cans.canscloud_android_sdk.CansCenter { *; }
-#-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
-#    *;
-#}
+# Keep the companion object and its members (methods/fields)
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
+    *;
+}
+
+# Ensure method names are not obfuscated, especially config method
+-keepnames class com.cans.canscloud_android_sdk.CansCenter$Companion {
+    public *;
+}
+
 
