@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.cans.canscloud_android_sdk.CansCloudApplication { *; }
+-keep class com.cans.canscloud_android_sdk.CansCenter {
+    *;
+}
