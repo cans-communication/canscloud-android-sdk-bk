@@ -40,7 +40,15 @@
 #}
 
 
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion  {
+   public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
+   public void startCall(java.lang.String);
+   public java.lang.String username();
+}
+
 -keep class com.cans.canscloud_android_sdk.CansCenterTest {
    public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
+   public void startCall(java.lang.String);
+   public java.lang.String username();
 }
 
