@@ -39,7 +39,6 @@
 #     config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
 #}
 
--keep class com.cans.canscloud_android_sdk.CansCenter {
-	public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
+    public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
 }
-

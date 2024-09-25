@@ -29,7 +29,7 @@ import retrofit2.Response
 import java.util.ArrayList
 import java.util.Locale
 
-class CansCenter private constructor()  {
+class CansCenter {
     companion object {
         private lateinit var core: Core
         private var proxyConfigToCheck: ProxyConfig? = null
@@ -38,7 +38,6 @@ class CansCenter private constructor()  {
         var packageManager : PackageManager? = null
         var packageName : String = ""
 
-        @JvmStatic
         fun config(context: Context, packageManager: PackageManager, packageName: String) {
             CansCloudApplication.ensureCoreExists(context)
             this.packageManager = packageManager
