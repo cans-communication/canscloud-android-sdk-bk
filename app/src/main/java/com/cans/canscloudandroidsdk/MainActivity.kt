@@ -6,6 +6,7 @@ import android.telecom.Call
 import android.util.Log
 import android.widget.TextView
 import com.cans.canscloud_android_sdk.CansCenter
+import com.cans.canscloud_android_sdk.CansCenterTest
 
 class MainActivity : AppCompatActivity() {
     var callback: CansCenter? = null
