@@ -121,4 +121,7 @@
 # -keep public class mypackage.MyClass
 # -keep public interface mypackage.MyInterface
 # -keep public class * implements mypackage.MyInterface
+#
 
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
+-keep class com.cans.canscloud_android_sdk.CansCenterTest { *; }
