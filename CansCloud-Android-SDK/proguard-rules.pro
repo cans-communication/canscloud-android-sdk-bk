@@ -53,3 +53,5 @@
 #}
 
 -keep class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
+-keep class com.cans.canscloud_android_sdk.CansCenterTest { *; }
+#-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
