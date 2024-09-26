@@ -52,7 +52,7 @@
 #   public java.lang.String username();
 #}
 
--keepclasseswithmembernames class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
--keepclasseswithmembernames class com.cans.canscloud_android_sdk.CansCenterTest { *; }
+#-keep class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
+#-keep class com.cans.canscloud_android_sdk.CansCenterTest { *; }
 
 #-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
