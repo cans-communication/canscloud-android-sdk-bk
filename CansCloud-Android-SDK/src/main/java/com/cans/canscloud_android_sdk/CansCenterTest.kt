@@ -41,45 +41,7 @@ object CansCenterTest {
         CansCloudApplication.ensureCoreExists(context)
         this.packageManager = packageManager
         this.packageName = packageName
-//            val factory = Factory.instance()
-//            factory.setDebugMode(true, "Hello Linphone")
-//            core = factory.createCore(null, null, context)
-
     }
-
-    /*fun login(activity: Activity) {
-        var username = "50104"
-        var password = "p50104CNS"
-        var domain = "test.cans.cc:8446"
-        val transportType = TransportType.Tcp
-        val authInfo = Factory.instance().createAuthInfo(username, null, password, null, null, domain, null)
-
-        val params = core.createAccountParams()
-        val identity = Factory.instance().createAddress("sip:$username@$domain")
-        params.identityAddress = identity
-
-        val address = Factory.instance().createAddress("sip:$domain")
-        address?.transport = transportType
-        params.serverAddress = address
-        params.isRegisterEnabled = true
-        val account = core.createAccount(params)
-
-        core.addAuthInfo(authInfo)
-        core.addAccount(account)
-
-        // Asks the CaptureTextureView to resize to match the captured video's size ratio
-        //core.config.setBool("video", "auto_resize_preview_to_keep_ratio", true)
-
-        core.defaultAccount = account
-        core.addListener(coreListener)
-        core.start()
-
-        // We will need the RECORD_AUDIO permission for video call
-        if (packageManager?.checkPermission(Manifest.permission.RECORD_AUDIO, packageName) != PackageManager.PERMISSION_GRANTED) {
-            activity.requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 0)
-            return
-        }
-    }*/
 
     fun register(activity: Activity) {
 

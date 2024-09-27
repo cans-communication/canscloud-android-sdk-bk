@@ -23,6 +23,7 @@ import org.linphone.core.R
 import org.linphone.core.RegistrationState
 import org.linphone.core.TransportType
 import org.linphone.core.tools.Log
+import org.linphone.core.tools.compatibility.DeviceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +46,6 @@ class CansCenter {
 //            val factory = Factory.instance()
 //            factory.setDebugMode(true, "Hello Linphone")
 //            core = factory.createCore(null, null, context)
-
         }
 
         /*fun login(activity: Activity) {
