@@ -40,8 +40,8 @@ android {
             minifyEnabled true
 
             //signingConfig signingConfigs.release
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            consumerProguardFiles "library-proguard-rules.pro"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //consumerProguardFiles "library-proguard-rules.pro"
 
             resValue "bool", "crashlytics_enabled", "false"
         }
@@ -120,7 +120,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.cans-communication'
             artifactId = 'canscloud-android-sdk'
-            version = '0.48.0'
+            version = '0.49.0'
 
             afterEvaluate {
                 from components.release
