@@ -53,9 +53,12 @@
 #}
 
 # Keep all public fields and methods in CansCenter
--keep class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
--keep class com.cans.canscloud_android_sdk.CansCenterTest { *; }
-
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion
+-keep class com.cans.canscloud_android_sdk.CansCenterTest {
+   public void config(android.content.Context, android.content.pm.PackageManager, java.lang.String);
+   public void startCall(java.lang.String);
+   public java.lang.String username();
+}
 
 
 #-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
