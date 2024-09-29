@@ -53,19 +53,9 @@
 #}
 
 # Keep all public fields and methods in CansCenter
--keep class com.cans.canscloud_android_sdk.CansCenter {
-    public *;
-}
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
+-keep class com.cans.canscloud_android_sdk.CansCenterTest { *; }
 
-# Keep all public fields and methods in CansCenterTest
--keep class com.cans.canscloud_android_sdk.CansCenterTest {
-    public *;
-}
-
-
--keep class com.cans.canscloud_android_sdk.CansCenter$Companion {
-    *;
-}
 
 
 #-keepclassmembers class com.cans.canscloud_android_sdk.CansCenter$Companion { *; }
