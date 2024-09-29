@@ -33,7 +33,7 @@ import java.util.Locale
 
 class CansCenter {
     @Keep
-    companion object Cans {
+    companion object {
         private lateinit var core: Core
         private var proxyConfigToCheck: ProxyConfig? = null
         private lateinit var accountCreator: AccountCreator

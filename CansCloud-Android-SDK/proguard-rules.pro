@@ -54,7 +54,7 @@
 
 # Keep all public fields and methods in CansCenter
 -keepnames class **$Companion
--keep class com.cans.canscloud_android_sdk.CansCenter$Cans
+-keep class com.cans.canscloud_android_sdk.CansCenter$Companion
 -keep class com.cans.canscloud_android_sdk.CansCenterTest
 
 
