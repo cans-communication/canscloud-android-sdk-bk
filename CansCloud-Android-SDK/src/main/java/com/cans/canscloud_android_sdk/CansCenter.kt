@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.annotation.Keep
 import androidx.core.app.ActivityCompat.requestPermissions
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.coreContextCansBase
 import com.cans.canscloud_android_sdk.CansCloudApplication.Companion.corePreferences
@@ -31,6 +32,7 @@ import java.util.ArrayList
 import java.util.Locale
 
 class CansCenter {
+    @Keep
     companion object {
         private lateinit var core: Core
         private var proxyConfigToCheck: ProxyConfig? = null
