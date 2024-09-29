@@ -33,7 +33,7 @@ import java.util.Locale
 
 class CansCenter {
     @Keep
-    companion object {
+    companion object Cans {
         private lateinit var core: Core
         private var proxyConfigToCheck: ProxyConfig? = null
         private lateinit var accountCreator: AccountCreator
@@ -41,6 +41,7 @@ class CansCenter {
         var packageManager : PackageManager? = null
         var packageName : String = ""
 
+        @JvmStatic
         fun config(context: Context, packageManager: PackageManager, packageName: String) {
             CansCloudApplication.ensureCoreExists(context)
             this.packageManager = packageManager
@@ -84,6 +85,7 @@ class CansCenter {
             }
         }*/
 
+        @JvmStatic
         fun register(activity: Activity) {
 
             var accountCreator = getAccountCreator(true)
